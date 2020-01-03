@@ -67,7 +67,7 @@ export default {
       }
     }
   },
-  created: function () {
+  created () {
     this.captcha = 'api/auth/captcha?key=' + this.random
   },
   methods: {

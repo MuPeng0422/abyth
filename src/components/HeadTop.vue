@@ -10,24 +10,23 @@
         <li
           v-for="(item, index) in navList"
           :key="index"
-          :class="{active:index==nowIndex}"
+          :class="{active:index == nowIndex}"
           @click="active(index)"
         >
           <router-link :to="item.path">
             <div class="navList">
               <div class="item">
-                <icon :name="item.icon" size="2x"></icon>
-                <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                <v-icon :name="item.icon" scale="1.5" />
                 <p>{{ item.title }}</p>
               </div>
             </div>
           </router-link>
         </li>
         <li>
-          <a href="https://www.zxyun119.com/business.html#/home">
+          <a href="http://zhyd.atx.net.cn/indexNew7.html">
             <div class="navList">
               <div class="item">
-                <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                <v-icon name="wave-square" scale="1.5" />
                 <p>智慧用电</p>
               </div>
             </div>
@@ -37,7 +36,7 @@
           <a href="https://www.zxyun119.com/business.html#/home">
             <div class="navList">
               <div class="item">
-                <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                <v-icon name="tint" scale="1.5" />
                 <p>智慧消防</p>
               </div>
             </div>
@@ -45,8 +44,12 @@
         </li>
       </ul>
     </el-col>
-    <el-col :span="6" class="header_weather">
-      <icon name="home"></icon>
+    <el-col :span="6" class="header_time">
+      <div class="timebox">
+        <span class="time">{{ time }}</span>
+        <span class="date">{{ date }}</span>
+        <span class="week">{{ week }}</span>
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -88,29 +91,65 @@ export default {
           icon: 'file-signature',
           path: '/home'
         }
-      ]
+      ],
+      time: '00 : 00 : 00',
+      date: '2020-01-01',
+      week: '星期一'
     };
+  },
+  mounted () {
+    this.currentTime();
   },
   methods: {
     active (num) {
       this.nowIndex = num;
+    },
+    currentTime () {
+      setInterval(this.getTime, 1000)
+    },
+    getTime: function () {
+      //获取当前标准时间
+      let nowDate = new Date();
+      // 获取年份
+      let year = nowDate.getFullYear();
+      //获取当前月
+      let month = nowDate.getMonth() + 1;
+      //判断小于10 加0
+      month = month< 10? '0' + month : month;
+      //获取当前日
+      let date = nowDate.getDate();
+      //判断小于10 加0
+      date = date? '0' + date : date;
+      //赋值
+      this.date = year + '-' + month + '-' + date;
+      //获取当前小时
+      let hours = nowDate.getHours();
+      hours = hours< 10? '0' + hours : hours;
+      //获取当前分钟
+      let minute = nowDate.getMinutes();
+      minute = minute< 10? '0' + minute : minute;
+      //获取当前秒
+      let second  = nowDate.getSeconds();
+      second = second< 10? '0' + second : second;
+      this.time = hours + ' : ' + minute + ' : ' + second;
+
+      //星期集合
+      let weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+      let day = nowDate.getDay();
+      this.week = weekday[day]
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '~@/assets/css/reset.styl';
-
 .header {
   width: 100%;
   height: 100%;
 
   .header_logo {
-    width: 25%;
-
     .logo {
-      width: 100%;
+      width: 70%;
 
       img {
         width: 100%;
@@ -120,11 +159,9 @@ export default {
   }
 
   .header_nav {
-    width: 100%;
     height: 100%;
 
     ul {
-      width: 100%;
       height: 100%;
       display: flex;
       justify-content: space-around;
@@ -156,6 +193,21 @@ export default {
               width: 100%;
             }
           }
+        }
+      }
+    }
+  }
+
+  .header_time {
+    .timebox {
+      text-align: right;
+
+      span {
+        margin-left: 20px;
+        color: $color;
+
+        &.time {
+          font-size: 24px;
         }
       }
     }

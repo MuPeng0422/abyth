@@ -2,7 +2,7 @@
   <div class="home">
     <el-container class="container">
       <el-header class="header_container">
-        <HeadTop></HeadTop>
+        <head-top></head-top>
       </el-header>
       <el-main class="main_container">
         <keep-alive>
@@ -40,6 +40,7 @@ export default {
     .header_container {
       width: 100%;
       height: 10% !important;
+      background: #010853;
     }
 
     .main_container {
