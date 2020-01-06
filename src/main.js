@@ -10,6 +10,17 @@ import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 Vue.component('v-icon', Icon)
 
+import VideoPlayer from 'vue-video-player'
+
+//引入video样式
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+
+//引入hls.js
+import 'videojs-contrib-hls';
+
+Vue.use(VideoPlayer);
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueAxios, axios)
