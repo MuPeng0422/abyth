@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const login = r => require.ensure([], () => r(require('@/views/Login')), 'login');
-const home = r => require.ensure([], () => r(require('@/views/Home')), 'home');
-const content = r => require.ensure([], () => r(require('@/views/Content')), 'content');
-const personnel = r => require.ensure([], () => r(require('@/views/Personnel')), 'personnel');
+const login = r => require.ensure([], () => r(require('@/components/Login')), 'login');
+const home = r => require.ensure([], () => r(require('@/views/abyth/Home')), 'home');
+const content = r => require.ensure([], () => r(require('@/views/abyth/IndexContent')), 'content');
+const personnel = r => require.ensure([], () => r(require('@/views/abyth/Personnel')), 'personnel');
 
 const routes = [{
     path: '/',
@@ -42,6 +42,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  
   if (to.path === '/login') {
     next();
   } else {

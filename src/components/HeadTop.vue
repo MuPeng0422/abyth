@@ -115,22 +115,22 @@ export default {
       //获取当前月
       let month = nowDate.getMonth() + 1;
       //判断小于10 加0
-      month = month< 10? '0' + month : month;
+      month = month < 10 ? '0' + month : month;
       //获取当前日
       let date = nowDate.getDate();
       //判断小于10 加0
-      date = date? '0' + date : date;
+      date = date ? '0' + date : date;
       //赋值
       this.date = year + '-' + month + '-' + date;
       //获取当前小时
       let hours = nowDate.getHours();
-      hours = hours< 10? '0' + hours : hours;
+      hours = hours < 10 ? '0' + hours : hours;
       //获取当前分钟
       let minute = nowDate.getMinutes();
-      minute = minute< 10? '0' + minute : minute;
+      minute = minute < 10 ? '0' + minute : minute;
       //获取当前秒
-      let second  = nowDate.getSeconds();
-      second = second< 10? '0' + second : second;
+      let second = nowDate.getSeconds();
+      second = second < 10 ? '0' + second : second;
       this.time = hours + ' : ' + minute + ' : ' + second;
 
       //星期集合
@@ -191,6 +191,15 @@ export default {
 
             .item {
               width: 100%;
+
+              .fa-icon {
+                width: 30px;
+                height: 30px;
+              }
+
+              p {
+                white-space: nowrap;
+              }
             }
           }
         }
