@@ -1,10 +1,21 @@
 <template>
   <div class="player-container">
-    <ul>
-      <li v-for="(item, index) in playerOptions" :key="index">
-        <video-player class="vjs-custom-skin" :options="item"></video-player>
-      </li>
-    </ul>
+    <swiper :options="swiperOption">
+      <swiper-slide v-for="(item, index) of playerOptions" :key="index">
+        <video-player
+          class="video-player vjs-custom-skin"
+          ref="videoPlayer"
+          :playsinline="true"
+          :options="item"
+        ></video-player>
+      </swiper-slide>
+    </swiper>
+    <div class="swiper-button-prev" slot="button-prev">
+      <v-icon name="caret-up" scale="2" />
+    </div>
+    <div class="swiper-button-next" slot="button-next">
+      <v-icon name="caret-down" scale="2" />
+    </div>
   </div>
 </template>
 
@@ -12,69 +23,54 @@
 export default {
   data () {
     return {
-      playerOptions: [
-        {
-          playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-          autoplay: true, //如果true,浏览器准备好时开始回放。
-          controls: true, //控制条
-          preload: 'auto', //视频预加载
-          muted: false, //默认情况下将会消除任何音频。
-          loop: false, //导致视频一结束就重新开始。
-          language: 'zh-CN',
-          aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-          fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-          sources: [{
-            type: 'application/x-mpegURL',
-            src: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8'
-          }],
-          //poster: "http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg", //你的封面地址
-          width: document.documentElement.clientWidth,
-          notSupportedMessage: '此视频暂无法播放，请稍后再试' //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-        },
-        {
-          playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-          autoplay: true, //如果true,浏览器准备好时开始回放。
-          controls: true, //控制条
-          preload: 'auto', //视频预加载
-          muted: false, //默认情况下将会消除任何音频。
-          loop: false, //导致视频一结束就重新开始。
-          language: 'zh-CN',
-          aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-          fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-          sources: [{
-            type: 'application/x-mpegURL',
-            src: 'http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8'
-          }],
-          //poster: "http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg", //你的封面地址
-          width: document.documentElement.clientWidth,
-          notSupportedMessage: '此视频暂无法播放，请稍后再试' //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-        },
-        {
-          playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-          autoplay: true, //如果true,浏览器准备好时开始回放。
-          controls: true, //控制条
-          preload: 'auto', //视频预加载
-          muted: false, //默认情况下将会消除任何音频。
-          loop: false, //导致视频一结束就重新开始。
-          language: 'zh-CN',
-          aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-          fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-          sources: [{
-            type: 'application/x-mpegURL',
-            src: 'http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8'
-          }],
-          //poster: "http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg", //你的封面地址
-          width: document.documentElement.clientWidth,
-          notSupportedMessage: '此视频暂无法播放，请稍后再试' //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-        }
-      ]
+      swiperOption: {
+        direction: 'vertical',
+        slidesPerView: 3,
+        spaceBetween: 30,
+        paginationClickable: true,
+        prevButton: '.swiper-button-prev',
+        nextButton: '.swiper-button-next',
+      },
+      playerOptions: []
     }
   },
-  methods: {
-
+  created () {
+    this.getVideoUrl()
   },
-  computed: {
-
+  methods: {
+    getVideoUrl () {
+      var data = [{
+        src: 'http://hls01open.ys7.com/openlive/3fe8bbde842f43af8e28d0e458fb080e.hd.m3u8'
+      }, {
+        src: 'http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8'
+      }, {
+        src: 'http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8'
+      }, {
+        src: 'http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8'
+      }]
+      for (var i = 0; i < data.length; i++) {
+        let arrStr = {
+          playbackRates: [0.5, 1.0, 1.5, 2.0], //播放速度
+          autoplay: true, //如果true,浏览器准备好时开始回放。
+          controls: true, //控制条
+          preload: 'auto', //视频预加载
+          muted: false, //默认情况下将会消除任何音频。
+          loop: false, //导致视频一结束就重新开始。
+          language: 'zh-CN',
+          aspectRatio: '16:9',
+          fluid: true,
+          sources: [
+            {
+              type: 'application/x-mpegURL',
+              src: data[i].src
+            }
+          ],
+          width: document.documentElement.clientWidth,
+          notSupportedMessage: '此视频暂无法播放，请稍后再试'
+        }
+        this.playerOptions.push(arrStr)
+      }
+    }
   }
 }
 </script>
@@ -82,9 +78,39 @@ export default {
 <style lang="stylus" scoped>
 .player-container {
   width: 100%;
+  height: 100%;
+  position: relative;
+
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+  }
 
   .video-player {
     cursor: pointer;
+  }
+
+  .swiper-button-prev, .swiper-button-next {
+    position: absolute;
+    width: 20px;
+    height: 32px;
+    margin-top: 0;
+    z-index: 999;
+    left: calc(50% - 10px);
+    cursor: pointer;
+    color: $color;
+    background-image: none;
+    background-size: 27px 44px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .swiper-button-prev {
+    top: -32px;
+  }
+
+  .swiper-button-next {
+    top: 100%;
   }
 }
 
