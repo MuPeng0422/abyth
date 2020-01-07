@@ -29,7 +29,7 @@
                   <el-input prefix-icon="el-icon-user" v-model="form.captcha" placeholder="请输入验证码"></el-input>
                 </el-col>
                 <el-col :span="10" class="captchaImg">
-                  <img :src="captcha" alt />
+                  <img :src="captchaImg" @click="changeImgCode" alt />
                 </el-col>
               </el-row>
             </el-form-item>
@@ -64,14 +64,28 @@ export default {
         type: [],
         captcha: '',
         token: ''
-      }
+      },
+      captchaImg: ''
     }
   },
   created () {
-    this.captcha = 'api/auth/captcha?key=' + this.random
+    this.captchaImg = 'api/auth/captcha?key=' + this.random;
+
+    let that = this;
+    document.onkeypress = function (e) {
+      var keycode = document.all ? event.keyCode : e.which;
+      if (keycode == 13) {
+        that.onSubmit();// 登录方法名
+        return false;
+      }
+    };
   },
   methods: {
     ...mapMutations(['changeLogin']),
+    changeImgCode () {
+      let random = Math.floor(Math.random() * (9999999 - 1000000 + 1)) + 1000000;
+      this.captchaImg = 'api/auth/captcha?key=' + random;
+    },
     onSubmit () {
       let _this = this;
       if (this.form.username === '') {
