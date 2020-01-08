@@ -84,7 +84,7 @@ export default {
       .tab_pannel {
         width: 100%;
         height: 70%;
-        padding-bottom: 2%;
+        padding-bottom: 3%;
         box-sizing: border-box;
       }
 

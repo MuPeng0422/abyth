@@ -4,12 +4,12 @@ import axios from 'axios'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
-import ECharts from 'vue-echarts'
 import Icon from 'vue-awesome/components/Icon'
 import VueAxios from 'vue-axios'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VideoPlayer from 'vue-video-player'
 import VueAMap from 'vue-amap'
+import VCharts from 'v-charts'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import 'vue-awesome/icons'
@@ -25,7 +25,7 @@ Vue.component('v-icon', Icon)
 Vue.use(VueAwesomeSwiper)
 Vue.use(VideoPlayer)
 Vue.use(VueAMap)
-Vue.component('v-chart', ECharts)
+Vue.use(VCharts)
 
 VueAMap.initAMapApiLoader({
   key: '458563dfd98653260b561d7dd3d8879f',

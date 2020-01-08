@@ -40,7 +40,7 @@ export default {
   methods: {
     getVideoUrl () {
       var data = [{
-        src: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8'
+        src: 'https://bilibili.com-l-163.com/20181003/9158_8d10d1fd/index.m3u8'
       }, {
         src: 'http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8'
       }, {
@@ -56,6 +56,7 @@ export default {
           preload: 'auto', //视频预加载
           muted: false, //默认情况下将会消除任何音频。
           loop: false, //导致视频一结束就重新开始。
+          language: 'zh-CN',
           aspectRatio: '16:9',
           fluid: true,
           sources: [
@@ -65,7 +66,13 @@ export default {
             }
           ],
           width: document.documentElement.clientWidth,
-          notSupportedMessage: '此视频暂无法播放，请稍后再试'
+          notSupportedMessage: '此视频暂无法播放，请稍后再试',
+          controlBar: {
+            timeDivider: true,
+            durationDisplay: false,
+            remainingTimeDisplay: true,
+            fullscreenToggle: true  //全屏按钮
+          }
         }
         this.playerOptions.push(arrStr)
       }
