@@ -61,44 +61,15 @@ export default {
     return {
       nowIndex: 0,
       logoImg: require('@/assets/img/logo2.png'),
-      navList: [
-        {
-          title: '指挥中心',
-          icon: 'home',
-          path: '/home'
-        }, {
-          title: '项目管理',
-          icon: 'th-list',
-          path: '/personnel'
-        }, {
-          title: '人员管理',
-          icon: 'user-plus',
-          path: '/home'
-        }, {
-          title: '设备管理',
-          icon: 'satellite-dish',
-          path: '/home'
-        }, {
-          title: '监控管理',
-          icon: 'video',
-          path: '/home'
-        }, {
-          title: '事件管理',
-          icon: 'list-ol',
-          path: '/home'
-        }, {
-          title: '培训考核',
-          icon: 'file-signature',
-          path: '/home'
-        }
-      ],
+      navList: [],
       time: '00 : 00 : 00',
       date: '2020-01-01',
       week: '星期一'
     };
   },
-  mounted () {
+  created () {
     this.currentTime();
+    this.getNav();
   },
   methods: {
     active (num) {
@@ -137,6 +108,40 @@ export default {
       let weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
       let day = nowDate.getDay();
       this.week = weekday[day]
+    },
+    getNav () {
+      var data = [
+        {
+          title: '指挥中心',
+          icon: 'home',
+          path: '/home'
+        }, {
+          title: '项目管理',
+          icon: 'th-list',
+          path: '/personnel'
+        }, {
+          title: '人员管理',
+          icon: 'user-plus',
+          path: '/home'
+        }, {
+          title: '设备管理',
+          icon: 'satellite-dish',
+          path: '/home'
+        }, {
+          title: '监控管理',
+          icon: 'video',
+          path: '/home'
+        }, {
+          title: '事件管理',
+          icon: 'list-ol',
+          path: '/home'
+        }, {
+          title: '培训考核',
+          icon: 'file-signature',
+          path: '/home'
+        }
+      ]
+      this.navList = data;
     }
   }
 }

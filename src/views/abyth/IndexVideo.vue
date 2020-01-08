@@ -40,7 +40,7 @@ export default {
   methods: {
     getVideoUrl () {
       var data = [{
-        src: 'http://hls01open.ys7.com/openlive/3fe8bbde842f43af8e28d0e458fb080e.hd.m3u8'
+        src: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8'
       }, {
         src: 'http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8'
       }, {
@@ -56,7 +56,6 @@ export default {
           preload: 'auto', //视频预加载
           muted: false, //默认情况下将会消除任何音频。
           loop: false, //导致视频一结束就重新开始。
-          language: 'zh-CN',
           aspectRatio: '16:9',
           fluid: true,
           sources: [
@@ -84,10 +83,12 @@ export default {
   .swiper-container {
     width: 100%;
     height: 100%;
-  }
 
-  .video-player {
-    cursor: pointer;
+    .video-player {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .swiper-button-prev, .swiper-button-next {

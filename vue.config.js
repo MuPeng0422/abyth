@@ -25,10 +25,13 @@ module.exports = {
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
     types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)))
   },
-
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector'
+  ],
   devServer: {
     open: true,
-    host: 'localhost',
+    host: '192.168.9.157',
     port: 8080,
     https: false,
     //以上的ip和端口是我们本机的;下面为需要跨域的
@@ -39,6 +42,14 @@ module.exports = {
         changOrigin: true, //允许跨域
         pathRewrite: {
           '^/api': '' //请求的时候使用这个api就可以
+        }
+      },
+      'pdf': {
+        target: 'http://oss.atx.net.cn', //这里后台的地址模拟的;应该填写你们真实的后台接口
+        ws: true,
+        changOrigin: true, //允许跨域
+        pathRewrite: {
+          '^/pdf': '' //请求的时候使用这个api就可以
         }
       }
     }
